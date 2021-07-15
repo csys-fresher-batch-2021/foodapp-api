@@ -19,9 +19,14 @@ class OrderController{
 
     //cancel My orders
 
-    delete(req,res){
+    updateorderDetails(req, res) {
+        console.log("order-controller --- updateorderDetails")
+
         let orderId = req.params.id;
-        orderService.delete(orderId).then(result => {
+        let order = req.body;        
+        order._id = orderId;
+
+        orderService.update(order).then(result => {
             let data = result;            
             res.status(200).json(data);
         }).catch(err => {            
@@ -30,22 +35,7 @@ class OrderController{
         });
     }
 
-    //display my orders
 
-    findOne(req, res) {
-
-        let orderId = req.params.id;
-        console.log(orderId);
-        orderService.findOne(orderId).then(result => {
-            let order = result;
-            console.log(order);            
-            res.status(200).json(order);
-        }).catch(err => {
-            console.log(err);
-            console.error("Error", err.message);
-            res.status(404).json({errorMessage: err.message});
-        });
-    }
 
 //get my orders
 

@@ -29,42 +29,29 @@ class OrderDAO {
 //delete my orders
 
 
-    async delete(order){
-       
-        const url = process.env.DB_URL + '/orders/'+ order._id + "?rev=" + order._rev;
-        try{
-        let result = await httpClient.delete(url);
-        return result.data;
-
-        }catch(err ){
-            this.handleErrorMessage(err);
-        }
-    }
-
-
-//find my orders
-
-async findOne(orderId) {
-    const url = this.DB_URL + "/orders/" + orderId;    
-    try {
-      let result = await httpClient.get(url);
-      return result.data;
-    } catch (err) {
-      this.handleErrorMessage(err);
-    }
+async update(order) {
+  const url = this.DB_URL + "/orders/" + order._id + "?rev=" + order._rev;    
+  try {
+    let result = await httpClient.put(url, order);
+    return result.data;
+  } catch (err) {
+    this.handleErrorMessage(err);
   }
+}
+
+
 
     async getMyOrders(userId){
 
 
         let selector = {
             "selector": {
-                "userId": userId               
+                "userId": userId.toString('base64')           
             },
-            "fields":[ "_id","_rev", "name", "price", "total","quantity"]
+            "fields":[ "_id","_rev", "name", "price", "total","quantity","orderDate","Status"]
         };
 
-        const url = process.env.DB_URL + '/orders/_find';
+        const url = this.DB_URL + '/orders/_find';
       
         try{
             
