@@ -17,10 +17,8 @@ class OrderController{
         });
     }
 
-    //cancel My orders
-
-    updateorderDetails(req, res) {
-        console.log("order-controller --- updateorderDetails")
+    updateorderdetails(req, res) {
+        console.log("order-controller --- updateUserDetails")
 
         let orderId = req.params.id;
         let order = req.body;        
@@ -34,6 +32,20 @@ class OrderController{
             res.status(500).json({errorMessage: err.message});
         });
     }
+    findOne(req, res) {
+        console.log("user-controller --- findOne")
+         let orderId = req.params.id;
+         console.log(orderId);
+         orderService.findOne(orderId).then(result => {
+             let order = result;
+             console.log(order);            
+             res.status(200).json(order);
+         }).catch(err => {
+             console.log(err);
+             console.error("Error", err.message);
+             res.status(404).json({errorMessage: err.message});
+         });
+     }
 
 
 

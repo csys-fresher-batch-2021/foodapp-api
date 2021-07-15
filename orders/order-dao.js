@@ -38,6 +38,18 @@ async update(order) {
     this.handleErrorMessage(err);
   }
 }
+    
+async findOne(orderId) {
+  const url = this.DB_URL + "/orders/" + orderId;    
+  try {
+    let result = await httpClient.get(url);
+    return result.data;
+  } catch (err) {
+    this.handleErrorMessage(err);
+  }
+}
+
+
 
 
 
@@ -48,7 +60,7 @@ async update(order) {
             "selector": {
                 "userId": userId.toString('base64')           
             },
-            "fields":[ "_id","_rev", "name", "price", "total","quantity","orderDate","Status"]
+            "fields":[ "_id","_rev", "name", "price", "total","quantity","orderDate","status"]
         };
 
         const url = this.DB_URL + '/orders/_find';

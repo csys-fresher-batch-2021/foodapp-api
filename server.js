@@ -27,8 +27,11 @@ app.get('/api/v1/products', productController.getAllProducts);
 app.get('/api/v1/products/search', productController.searchByname);
 app.get('/api/v1/products/:id', productController.findOne);
 app.post('/api/v1/orders', orderController.save);
-app.delete('/api/v1/orders/:id', orderController.updateorderDetails);
 app.get('/api/v1/orders/search', orderController. getMyOrders);
+app.patch('/api/v1/orders/:id', orderController.updateorderdetails);
+app.get('/api/v1/orders/:id', productController.findOne);
+
+
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
