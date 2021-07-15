@@ -14,7 +14,8 @@ class OrderDAO {
 
     //post my orders
 
-    async save(order) {    
+    async save(order) {  
+      console.log(order)  
         const url = this.DB_URL + "/orders";    
         try {
           let result = await httpClient.post(url, order);
@@ -58,7 +59,7 @@ async findOne(orderId) {
 
         let selector = {
             "selector": {
-                "userId": userId                
+                "userId": userId               
             },
             "fields":[ "_id","_rev", "name", "price", "total","quantity"]
         };
