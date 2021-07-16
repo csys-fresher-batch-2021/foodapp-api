@@ -2,9 +2,23 @@ const { UserService } = require("./user-service");
 const userService = new UserService();
 class UserController {    
 
-    getAllUsers(req, res) {
-
+    login(req,res){
+        let {email,password} =  req.body;
         
+        userService.login(email,password).then(result => {
+            let user = result;
+            console.log(user);
+            res.status(200).json(user);
+        }).catch(err => {
+            console.log(err);
+            console.error("Error", err.message);
+            res.status(500).json({ errorMessage:  err.message });
+        });
+    }
+
+
+
+    getAllUsers(req, res) {
         userService.getAllUsers().then(result => {
             let users = result;
             console.log(users);

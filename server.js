@@ -16,6 +16,7 @@ const userController = new UserController();
 const productController = new ProductController();
 const orderController = new OrderController();
 
+app.post('/api/v1/auth/login', userController.login);
 app.get('/api/v1/users', userController.getAllUsers);
 app.get('/api/v1/users/search', userController.searchByRole);
 app.get('/api/v1/users/:id', userController.findOne);

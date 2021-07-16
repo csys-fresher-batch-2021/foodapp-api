@@ -8,6 +8,13 @@ class UserService {
 
         return userDAO.getAllUsers();
     }
+    async login(email, password){
+        let user = await userDAO.login(email,password);
+        if(user == null){
+            throw new Error("Invalid Login Credentials");
+        }
+        return user;
+    }
 
     async searchUsers(role) {
 

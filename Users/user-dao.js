@@ -41,6 +41,24 @@ class UserDAO {
       this.handleErrorMessage(err);
     }
   }
+  async login(email, password) {
+    let query = {
+      selector: {
+        email: email,
+        password:password
+      },
+      fields: ["_id", "_rev", "firstname", "email", "role"],
+    };
+
+    const url = this.DB_URL + "/users/_find";    
+    try {
+      let result = await httpClient.post(url, query);
+      let rows = result.data.docs;
+      return rows.length > 0 ? rows[0]: null;
+    } catch (err) {
+      this.handleErrorMessage(err);
+    }
+  }
 
   async findOne(userId) {
     const url = this.DB_URL + "/users/" + userId;    
