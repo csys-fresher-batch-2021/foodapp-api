@@ -6,7 +6,13 @@ class ProductService {
 
     async  getAllProducts() {
 
-        return productDAO. getAllProducts();
+        const products = await productDAO. getAllProducts();
+        const productsList = [];
+        for(let product of products){
+            product.price = parseInt(product.price);
+            productsList.push(product);
+        }
+        return productsList;
     }
     
     async searchname(name) {
