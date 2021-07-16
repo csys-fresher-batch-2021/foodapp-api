@@ -10,7 +10,19 @@ class OrderDAO {
       console.log("DB_URL=" , this.DB_URL);
     }
   
-
+    async getAllOrders() {
+      const url = this.DB_URL + "/orders/_all_docs?include_docs=true";    
+      try {
+        let result = await httpClient.get(url);
+        console.log("Result", result);
+        let rows = result.data.rows
+          .filter((obj) => !obj.id.includes("_design"))
+          .map((obj) => obj.doc);
+        return rows;
+      } catch (err) {
+        this.handleErrorMessage(err);
+      }
+    }
 
     //post my orders
 

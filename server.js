@@ -31,6 +31,7 @@ app.post('/api/v1/orders', orderController.save);
 app.get('/api/v1/orders/search', orderController. getMyOrders);
 app.patch('/api/v1/orders/:id', orderController.updateorderdetails);
 app.get('/api/v1/orders/:id', productController.findOne);
+app.get('/api/v1/orders', orderController.getAllOrders);
 
 
 

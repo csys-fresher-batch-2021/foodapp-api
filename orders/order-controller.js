@@ -46,6 +46,20 @@ class OrderController{
              res.status(404).json({errorMessage: err.message});
          });
      }
+      
+     getAllOrders(req, res) {
+
+        
+        orderService.getAllOrders().then(result => {
+            let orders = result;
+            console.log(orders);
+            res.status(200).json(orders);
+        }).catch(err => {
+            console.log(err);
+            console.error("Error", err.message);
+            res.status(500).json({ erorMessage:  err.message });
+        });
+    }
 
 
 

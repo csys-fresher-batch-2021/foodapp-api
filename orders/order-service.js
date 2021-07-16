@@ -4,6 +4,15 @@ const orderDAO = new OrderDAO();
 
 class OrderService {
 
+
+
+
+    
+    async getAllOrders() {
+
+        return orderDAO.getAllOrders();
+    }
+
 //post my orders
 
     async save(order) {
