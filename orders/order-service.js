@@ -23,7 +23,7 @@ class OrderService {
            let exists  =  false; //await orderDAO.findOne();
 
            if(exists){
-               throw new Error("Email Already Registered");
+               throw new Error("Order Already Registered");
            }
            
            let result = await orderDAO.save(order);

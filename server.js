@@ -13,8 +13,8 @@ app.use(cors());
 const port = process.env.PORT || 3000;
 
 const userController = new UserController();
-const productController = new ProductController();
-const orderController = new OrderController();
+
+
 
 app.post('/api/v1/auth/login', userController.login);
 app.get('/api/v1/users', userController.getAllUsers);
@@ -24,9 +24,18 @@ app.post('/api/v1/users', userController.save);
 app.put('/api/v1/users/:id', userController.updateUserDetails);
 app.patch('/api/v1/users/:id', userController.changePassword);
 app.delete('/api/v1/users/:id', userController.delete);
+
+const productController = new ProductController();
+
 app.get('/api/v1/products', productController.getAllProducts);
 app.get('/api/v1/products/search', productController.searchByname);
 app.get('/api/v1/products/:id', productController.findOne);
+app.post('/api/v1/products', productController.save);
+app.put('/api/v1/products/:id', productController.updateProductDetails);
+app.delete('/api/v1/products/:id', productController.delete);
+
+const orderController = new OrderController();
+
 app.post('/api/v1/orders', orderController.save);
 app.get('/api/v1/orders/search', orderController. getMyOrders);
 app.patch('/api/v1/orders/:id', orderController.updateorderdetails);

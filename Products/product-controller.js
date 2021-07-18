@@ -56,6 +56,42 @@ class ProductController {
             res.status(404).json({errorMessage: err.message});
         });
     }
+    save(req, res) {
+
+        let product = req.body;
+        productService.save(product).then(result => {
+            let data = result;            
+            res.status(201).json(data);
+        }).catch(err => {            
+            console.error("Error", err.message);
+            res.status(500).json({errorMessage: err.message});
+        });
+    }
+    updateProductDetails(req, res) {
+
+        let productId = req.params.id;
+        let product = req.body;        
+        product._id = productId;
+
+        productService.update(product).then(result => {
+            let data = result;            
+            res.status(200).json(data);
+        }).catch(err => {            
+            console.error("Error", err.message);
+            res.status(500).json({errorMessage: err.message});
+        });
+    }
+
+    delete(req,res){
+        let productId = req.params.id;
+        productService.delete(productId).then(result => {
+            let data = result;            
+            res.status(200).json(data);
+        }).catch(err => {            
+            console.error("Error", err.message);
+            res.status(500).json({errorMessage: err.message});
+        });
+    }
 
 
 }

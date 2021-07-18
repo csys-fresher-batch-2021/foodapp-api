@@ -61,6 +61,37 @@ class ProductDAO {
           this.handleErrorMessage(err);
         }
       }
+      async save(product) {    
+        const url = this.DB_URL + "/products";    
+        try {
+          let result = await httpClient.post(url, product);
+          console.log(result);
+          return result.data;
+        } catch (err) {
+          this.handleErrorMessage(err);
+        }
+      }
+    
+      async delete(product) {
+        const url = this.DB_URL + "/products/" + product._id + "?rev=" + product._rev;
+        
+        try {
+          let result = await httpClient.delete(url);
+          return result.data;
+        } catch (err) {
+          this.handleErrorMessage(err);
+        }
+      }
+    
+      async update(product) {
+        const url = this.DB_URL + "/products/" + product._id + "?rev=" + product._rev;    
+        try {
+          let result = await httpClient.put(url, product);
+          return result.data;
+        } catch (err) {
+          this.handleErrorMessage(err);
+        }
+      }
 
     
       handleErrorMessage(err) {
