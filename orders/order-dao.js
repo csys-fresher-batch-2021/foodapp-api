@@ -30,9 +30,7 @@ class OrderDAO {
       console.log(order)  
         const url = this.DB_URL + "/orders";    
         try {
-          let result = await httpClient.post(url, order);
-          console.log(result);
-          return result;
+         await httpClient.post(url, order);
         } catch (err) {
           this.handleErrorMessage(err);
         }
