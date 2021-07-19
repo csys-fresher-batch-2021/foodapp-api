@@ -26,17 +26,29 @@ class OrderDAO {
 
     //post my orders
 
-    async save(order) {  
-      console.log(order)  
-        const url = this.DB_URL + "/orders";    
-        try {
-          let result = await httpClient.post(url, order);
-          console.log(result);
+    async save(order) {
+
+      console.log(order);
+
+      const apiKey = Buffer.from(process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD).toString('base64');
+      console.log(apiKey);
+      const headers  =  {
+          'Authorization': `Basic ${apiKey}`
+      };
+      console.log(headers);
+
+      const url = process.env.DB_URL + '/orders';
+      console.log(url);
+      try{
+          let result = await httpClient.post(url,user, { headers: headers });
           return result.data;
-        } catch (err) {
-          this.handleErrorMessage(err);
-        }
+
       }
+      catch(err) {            
+          this.handleErrorMessage(err);         
+      };
+  }
+
 
 //delete my orders
 
