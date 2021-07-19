@@ -9,6 +9,7 @@ class OrderController{
         
 
         let order = req.body;
+        console.log(order)
         orderService.save(order).then(result => {
             let data = result;            
             res.status(201).json(data);
