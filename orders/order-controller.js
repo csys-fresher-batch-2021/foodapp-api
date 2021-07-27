@@ -5,11 +5,10 @@ class OrderController{
 
    //Post Order Details
 
+   
     save(req, res) {
-        
 
-        let order = req.body;
-        console.log(order)
+        let order = (req.body);
         orderService.save(order).then(result => {
             let data = result;            
             res.status(201).json(data);

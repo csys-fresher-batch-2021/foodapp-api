@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors');
-var bodyParser = require('body-parser')
+
 
 const dotenv = require('dotenv');
 const { UserController } = require("./Users/user-controller");
@@ -11,7 +11,8 @@ dotenv.config();
 const app = express()
 app.use(express.json());
 app.use(cors());
-app.use(bodyParser.json())
+
+
 const port = process.env.PORT || 3000;
 
 const userController = new UserController();

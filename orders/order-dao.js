@@ -1,4 +1,5 @@
 const { HttpClient } = require("../http-client");
+const axios = require('axios');
 const dotenv = require('dotenv');
 dotenv.config();
 const httpClient = new HttpClient();
@@ -37,7 +38,7 @@ class OrderDAO {
           this.handleErrorMessage(err);
         }
       }
-
+   
 //delete my orders
 
 
@@ -72,7 +73,7 @@ async findOne(orderId) {
             "selector": {
                 "userId": userId.toString('base64')           
             },
-            "fields":[ "_id","_rev", "name", "price", "total","quantity","orderDate","status"]
+            "fields":[ "_id","_rev", "name", "price", "total","quantity","orderDate","status","orderitems","orderedDate","userId"]
         };
 
         const url = this.DB_URL + '/orders/_find';
