@@ -11,10 +11,7 @@ class ProductController {
         productService.getAllProducts().then(result => {
             let products = result;
             console.log(products);
-            res.json({
-                message: "AllProducts",
-                products
-            });
+            res.json(products);
         }).catch(err => {
             console.log(err);
             console.error("Error", err.message);
