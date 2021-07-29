@@ -82,10 +82,7 @@ class OrderController {
         orderService.searchId(userId).then(result => {
             let orders = result;
             console.log(orders);
-            res.json({
-                message: "Get MyOrders Successfully",
-                orders
-            });
+            res.json( orders);
         }).catch(err => {
             console.log(err);
             console.error("Error", err.message);
