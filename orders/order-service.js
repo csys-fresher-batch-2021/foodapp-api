@@ -1,4 +1,4 @@
-
+const OrderValidator = require('../validator/ordervalidation.js');
 const { OrderDAO } = require("./order-dao");
 const orderDAO = new OrderDAO();
 
@@ -50,10 +50,6 @@ class OrderService {
         console.log("order-service --- update")
 
         try {
-            const output = OrderValidator.updateorderSchema().validate(order);
-            if (output.error != null) {
-                throw new Error(output.error);
-            }
             let actualRecord = await orderDAO.findOne(order._id);
             if (!actualRecord) {
                 throw new Error("order Id not found");

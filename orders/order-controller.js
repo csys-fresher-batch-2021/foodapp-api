@@ -30,7 +30,9 @@ class OrderController {
 
         orderService.update(order).then(result => {
             let data = result;
-            res.status(200).json(data);
+            res.status(200).json({
+                message:"updated successfully",
+                data});
         }).catch(err => {
             console.error("Error", err.message);
             res.status(500).json({ errorMessage: err.message });
