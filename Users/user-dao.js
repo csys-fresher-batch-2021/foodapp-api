@@ -7,11 +7,16 @@ class UserDAO {
   DB_URL = null;
   constructor() {
     this.DB_URL = process.env.DB_URL;
-    console.log("DB_URL=" , this.DB_URL);
+    console.log("DB_URL=", this.DB_URL);
   }
 
+  /**
+     * Function to get AllUsers
+     * @param {*} user 
+     */
+
   async getAllUsers() {
-    const url = this.DB_URL + "/users/_all_docs?include_docs=true";    
+    const url = this.DB_URL + "/users/_all_docs?include_docs=true";
     try {
       let result = await httpClient.get(url);
       console.log("Result", result);
@@ -24,44 +29,39 @@ class UserDAO {
     }
   }
 
-  async searchByRole(role) {
-    let query = {
-      selector: {
-        role: role,
-      },
-      fields: ["_id", "_rev", "name", "email", "role"],
-    };
+  /**
+   * Function to Login
+   * @param {*} user 
+   */
 
-    const url = this.DB_URL + "/users/_find";    
-    try {
-      let result = await httpClient.post(url, query);
-      let rows = result.data.docs;
-      return rows;
-    } catch (err) {
-      this.handleErrorMessage(err);
-    }
-  }
   async login(email, password) {
     let query = {
       selector: {
         email: email,
-        password:password
+        password: password
       },
-      fields: ["_id", "_rev", "firstname", "email", "role"],
+      fields: ["_id", "_rev", "username", "email"],
     };
 
-    const url = this.DB_URL + "/users/_find";    
+    const url = this.DB_URL + "/users/_find";
     try {
       let result = await httpClient.post(url, query);
       let rows = result.data.docs;
-      return rows.length > 0 ? rows[0]: null;
+      return rows.length > 0 ? rows[0] : null;
     } catch (err) {
       this.handleErrorMessage(err);
     }
   }
 
+  /**
+   * Function to get UsersById
+   * @param {*} user 
+   */
+
   async findOne(userId) {
-    const url = this.DB_URL + "/users/" + userId;    
+    console.log(userId)
+    const url = this.DB_URL + "/users/" + userId;
+    console.log(url)
     try {
       let result = await httpClient.get(url);
       return result.data;
@@ -70,25 +70,13 @@ class UserDAO {
     }
   }
 
-  handleErrorMessage(err) {
-    console.error(err);
-    let response = err.response.data;
-    let errorMessage = err.response.data.error;
-    console.log("errorMessage:" + errorMessage);
-    if (response.error == "not_found" ) {
-      if (response.reason == "Database does not exist."){
-        throw new Error("Database not found");
-      }
-      else{
-        throw new Error("Data not found");
-      }
-    } else {
-      throw new Error(errorMessage);
-    }
-  }
+  /**
+   * Function to Create NewUser
+   * @param {*} user 
+   */
 
-  async save(user) {    
-    const url = this.DB_URL + "/users";    
+  async save(user) {
+    const url = this.DB_URL + "/users";
     try {
       let result = await httpClient.post(url, user);
       console.log(result);
@@ -98,24 +86,37 @@ class UserDAO {
     }
   }
 
-  async delete(user) {
+  /**
+    * Function to Update User
+    * @param {*} user 
+    */
+
+
+  async update(user) {
     const url = this.DB_URL + "/users/" + user._id + "?rev=" + user._rev;
-    
     try {
-      let result = await httpClient.delete(url);
+      let result = await httpClient.put(url, user);
       return result.data;
     } catch (err) {
       this.handleErrorMessage(err);
     }
   }
 
-  async update(user) {
-    const url = this.DB_URL + "/users/" + user._id + "?rev=" + user._rev;    
-    try {
-      let result = await httpClient.put(url, user);
-      return result.data;
-    } catch (err) {
-      this.handleErrorMessage(err);
+
+  handleErrorMessage(err) {
+    console.error(err);
+    let response = err.response.data;
+    let errorMessage = err.response.data.error;
+    console.log("errorMessage:" + errorMessage);
+    if (response.error == "not_found") {
+      if (response.reason == "Database does not exist.") {
+        throw new Error("Database not found");
+      }
+      else {
+        throw new Error("Data not found");
+      }
+    } else {
+      throw new Error(errorMessage);
     }
   }
 }

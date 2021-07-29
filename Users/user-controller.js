@@ -1,20 +1,36 @@
 const { UserService } = require("./user-service");
 const userService = new UserService();
-class UserController {    
+const Joi = require("@hapi/joi");
 
-    login(req,res){
-        let {email,password} =  req.body;
-        
-        userService.login(email,password).then(result => {
+class UserController {
+
+    /**
+    * Function to Login
+    * @param {*} user 
+    */
+
+    login(req, res) {
+        let { email, password } = req.body;
+
+        userService.login(email, password).then(result => {
             let user = result;
             console.log(user);
-            res.status(200).json(user);
+            res.status(200).json({
+                message: "Logged in Successfully",
+                user
+            });
         }).catch(err => {
             console.log(err);
             console.error("Error", err.message);
-            res.status(500).json({ errorMessage:  err.message });
+            res.status(500).json({ errorMessage: err.message });
         });
     }
+
+    /**
+    * Function to get AllUsers
+    * @param {*} user 
+    */
+
 
 
 
@@ -22,96 +38,85 @@ class UserController {
         userService.getAllUsers().then(result => {
             let users = result;
             console.log(users);
-            res.status(200).json(users);
+            res.status(200).json({
+                message: "All Users",
+                users
+            });
         }).catch(err => {
             console.log(err);
             console.error("Error", err.message);
-            res.status(500).json({ erorMessage:  err.message });
+            res.status(500).json({ erorMessage: err.message });
         });
     }
 
-    searchByRole(req, res) {
+    /**
+     * Function to get UsersById
+     * @param {*} user 
+     */
 
-        let role = req.query.role;
-        console.log("Role:" + role);
-        
-        userService.searchUsers(role).then(result => {
-            let users = result;
-            console.log(users);
-            res.json(users);
-        }).catch(err => {
-            console.log(err);
-            console.error("Error", err.message);
-            res.status(500).json({ erorMessage:  err.message });
-        });
-    }
 
     findOne(req, res) {
-       console.log("user-controller --- findOne")
+        console.log("user-controller --- findOne")
         let userId = req.params.id;
         console.log(userId);
         userService.findOne(userId).then(result => {
             let user = result;
-            console.log(user);            
+            console.log(user);
             res.status(200).json(user);
         }).catch(err => {
             console.log(err);
             console.error("Error", err.message);
-            res.status(404).json({errorMessage: err.message});
+            res.status(404).json({ errorMessage: err.message });
         });
-    }
+    };
+
+
+    /**
+     * Function to Create NewUser
+     * @param {*} user 
+     */
 
     save(req, res) {
 
         let user = req.body;
         userService.save(user).then(result => {
-            let data = result;            
-            res.status(201).json(data);
-        }).catch(err => {            
+            let data = result;
+            res.status(201).json({
+                message: "successfully Registered",
+                data: data
+            });
+        }).catch(err => {
             console.error("Error", err.message);
-            res.status(500).json({errorMessage: err.message});
+            res.status(500).json({ errorMessage: err.message });
         });
     }
 
-    changePassword(req, res) {
+     /**
+     * Function to Update User
+     * @param {*} user 
+     */
 
-        let userId = req.params.id;
-        let { password} = req.body;
 
-        userService.changePassword(userId, password).then(result => {
-            let data = result;            
-            res.status(200).json(data);
-        }).catch(err => {            
-            console.error("Error", err.message);
-            res.json({errorMessage: err.message});
-        });
-    }
 
     updateUserDetails(req, res) {
         console.log("user-controller --- updateUserDetails")
 
         let userId = req.params.id;
-        let user = req.body;        
+        let user = req.body;
         user._id = userId;
-
         userService.update(user).then(result => {
-            let data = result;            
-            res.status(200).json(data);
-        }).catch(err => {            
+            let data = result;
+            res.status(200).json({
+                message: "Updated Successfully",
+                data: data
+
+            });
+        }).catch(err => {
             console.error("Error", err.message);
-            res.status(500).json({errorMessage: err.message});
+            res.status(500).json({ errorMessage: err.message });
         });
     }
 
-    delete(req,res){
-        let userId = req.params.id;
-        userService.delete(userId).then(result => {
-            let data = result;            
-            res.status(200).json(data);
-        }).catch(err => {            
-            console.error("Error", err.message);
-            res.status(500).json({errorMessage: err.message});
-        });
-    }
+
 }
 exports.UserController = UserController;

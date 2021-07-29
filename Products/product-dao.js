@@ -52,6 +52,8 @@ class ProductDAO {
         };
 
     }
+
+
     async findOne(productId) {
         const url = this.DB_URL + "/products/" + productId;    
         try {
@@ -61,6 +63,9 @@ class ProductDAO {
           this.handleErrorMessage(err);
         }
       }
+
+
+
       async save(product) {    
         const url = this.DB_URL + "/products";    
         try {
@@ -72,6 +77,8 @@ class ProductDAO {
         }
       }
     
+
+
       async delete(product) {
         const url = this.DB_URL + "/products/" + product._id + "?rev=" + product._rev;
         
@@ -82,6 +89,8 @@ class ProductDAO {
           this.handleErrorMessage(err);
         }
       }
+
+
     
       async update(product) {
         const url = this.DB_URL + "/products/" + product._id + "?rev=" + product._rev;    
@@ -111,27 +120,6 @@ class ProductDAO {
         }
       }
 
-    // async save(product) {
-
-    //     console.log(product);
-
-    //     const apiKey = Buffer.from(process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD).toString('base64');
-    //     console.log(apiKey);
-    //     const headers  =  {
-    //         'Authorization': `Basic ${apiKey}`
-    //     };
-    //     console.log(headers);
-
-    //     const url = process.env.DB_URL + '/products';
-    //     console.log(url);
-    //     try{
-    //         let result = await axios.post(url,user, { headers: headers });
-    //         return result.data;
-
-    //     }
-    //     catch(err) {            
-    //         this.handleErrorMessage(err);         
-    //     };
-    // }
+    
 }
 exports.ProductDAO = ProductDAO;
