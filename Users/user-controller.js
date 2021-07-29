@@ -15,10 +15,7 @@ class UserController {
         userService.login(email, password).then(result => {
             let user = result;
             console.log(user);
-            res.status(200).json({
-                message: "Logged in Successfully",
-                user
-            });
+            res.status(200).json(user);
         }).catch(err => {
             console.log(err);
             console.error("Error", err.message);
