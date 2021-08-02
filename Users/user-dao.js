@@ -15,7 +15,8 @@ class UserDAO {
      * @param {*} user 
      */
 
-  async getAllUsers() {
+  async getAllUsers(user) {
+    console.log(user)
     const url = this.DB_URL + "/users/_all_docs?include_docs=true";
     try {
       let result = await httpClient.get(url);
@@ -57,8 +58,8 @@ class UserDAO {
    * Function to get UsersById
    * @param {*} user 
    */
-
   async findOne(userId) {
+
     console.log(userId)
     const url = this.DB_URL + "/users/" + userId;
     console.log(url)

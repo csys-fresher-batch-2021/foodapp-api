@@ -43,6 +43,8 @@ class OrderDAO {
 
 
 async update(order) {
+  console.log("orderdao")
+  console.log(order)
   const url = this.DB_URL + "/orders/" + order._id + "?rev=" + order._rev;    
   try {
     let result = await httpClient.put(url, order);

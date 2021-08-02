@@ -23,7 +23,7 @@ class OrderController {
 
     updateorderdetails(req, res) {
         console.log("order-controller --- updateUserDetails")
-
+          console.log(req.body)
         let orderId = req.params.id;
         let order = req.body;
         order._id = orderId;

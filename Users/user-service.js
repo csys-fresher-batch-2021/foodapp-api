@@ -81,11 +81,6 @@ class UserService {
             if (result.error != null) {
                 throw new Error(result.error);
             }
-            // const oldUser = await userDAO.getAllUsers(user.email)
-            // console.log(oldUser)
-            // if (oldUser) {
-            //     throw new Error("Email Already Registered");
-            // }
             return userDAO.save(user);
         }
         catch (err) {

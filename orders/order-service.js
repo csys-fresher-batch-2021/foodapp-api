@@ -48,15 +48,21 @@ class OrderService {
 
     async update(order) {
         console.log("order-service --- update")
-
+          console.log(order)
         try {
             let actualRecord = await orderDAO.findOne(order._id);
             if (!actualRecord) {
                 throw new Error("order Id not found");
             }
 
+
             //update - status
-            actualRecord.status = order.status;
+           let status
+            const newOrder = order.map((obj)=>{
+               status = obj.status
+           })
+          
+            actualRecord.status = status;
 
 
             let result = await orderDAO.update(actualRecord);
