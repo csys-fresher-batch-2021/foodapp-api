@@ -5,6 +5,11 @@ const ProductValidator = require('../validator/productvalidation.js');
 class ProductService {
 
 
+     /**
+    * Function to GETALLPRODUCTS
+    * @param {*} product 
+    */
+
     async  getAllProducts() {
 
         const products = await productDAO.getAllProducts();
@@ -15,6 +20,11 @@ class ProductService {
         }
         return productsList;
     }
+
+     /**
+    * Function to SEARCH PRODUCT BY NAME
+    * @param {*} product
+    */
 
     async searchname(name) {
 
@@ -34,6 +44,12 @@ class ProductService {
 
 
     }
+
+      /**
+    * Function to PostProduct
+    * @param {*} product
+    */
+
     async save(product) {
 
         console.log(product);

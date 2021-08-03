@@ -3,7 +3,11 @@ const productService = new ProductService();
 
 class ProductController {
 
-    // Get All Meals
+    
+    /**
+    * Function to GETALLPRODUCTS
+    * @param {*} product
+    */
 
     getAllProducts(req, res) {
 
@@ -19,7 +23,11 @@ class ProductController {
         });
     }
 
-    // Search Meals By Name
+      /**
+    * Function to SEARCH PRODUCTS BY NAME
+    * @param {*} user 
+    */
+
 
     searchByname(req, res) {
 
@@ -60,7 +68,7 @@ class ProductController {
 
      /**
    * Function to Create NewProduct
-   * @param {*} user 
+   * @param {*} product
    */
 
 
@@ -81,7 +89,7 @@ class ProductController {
 
   /**
    * Function to Update Product
-   * @param {*} user 
+   * @param {*} product
    */
 
 
@@ -106,7 +114,7 @@ class ProductController {
 
   /**
    * Function to Delete Product
-   * @param {*} user 
+   * @param {*} product
    */
 
 
